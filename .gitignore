@@ -1,11 +1,8 @@
-# --- Environment / Secrets (CRITICAL) ---
 .env
 .venv
 env/
 venv/
 ENV/
-
-# --- Python ---
 __pycache__/
 *.py[cod]
 *$py.class
@@ -26,28 +23,26 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-
-# --- Database / Local Storage ---
 *.db
 *.sqlite3
-# If you ever mount local volumes for Docker
 postgres_data/
-
-# --- Testing / Coverage ---
 htmlcov/
 .tox/
 .nosetests
 .pytest_cache/
 vulture_report.json
-
-# --- IDEs / Editors ---
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
-
-# --- Logs ---
 *.log
 logs/
+.railway/
+.vercel/
+.next/
+out/
+docker-compose.override.yml
+celerybeat-schedule
+*.pid

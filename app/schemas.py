@@ -1,16 +1,15 @@
 from pydantic import BaseModel
-from datetime import datetime
 from typing import Optional
+from datetime import datetime
 
-class TaskBase(BaseModel):
+class TaskCreate(BaseModel):
     title: str
     description: Optional[str] = None
 
-class TaskCreate(TaskBase):
-    pass
-
-class TaskResponse(TaskBase):
+class TaskResponse(BaseModel):
     id: int
+    title: str
+    description: Optional[str]
     status: str
     created_at: datetime
 
