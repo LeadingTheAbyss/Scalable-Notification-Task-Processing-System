@@ -1,44 +1,39 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 from typing import List
-import traceback
+import redis.asyncio as redis
+from fastapi_limiter import FastAPILimiter
+from fastapi_limiter.depends import RateLimiter
+
 from . import models, schemas, worker
 from .database import get_db, engine
+from .redis_client import get_redis
 
 models.Base.metadata.create_all(bind = engine)
+
 app = FastAPI(title="Scalable Task System")
 
+@app.on_event("startup")
+async def startup():
+    r = redis.from_url("redis://127.0.0.1:6379/0", encoding="utf-8", decode_responses=True)
+    await FastAPILimiter.init(r)
+
 @app.get("/health")
-def health_check(db: Session = Depends(get_db)):
-    try:
-        db.execute(text("SELECT 1"))
-        return {"status": "Online", "database": "Online"}
-    except Exception as e:
-        return {"status": "Online", "database": "Offline", "error": str(e)}
+def health_check():
+    return {"status": "Online"}
 
-@app.post("/tasks", response_model=schemas.TaskResponse)
+@app.post("/tasks", 
+          response_model=schemas.TaskResponse, 
+          dependencies=[Depends(RateLimiter(times = 5, seconds = 60))])
 def create_task(task: schemas.TaskCreate, db: Session = Depends(get_db)):
-    try:
-        db_task = models.Task(title = task.title, description = task.description)
-        db.add(db_task)
-        db.commit()
-        db.refresh(db_task)
-        worker.process_notification.delay(db_task.id)
-
-        return db_task
-    except Exception as e:
-        print("? POST /tasks FAILED!")
-        traceback.print_exc()
-        raise HTTPException(status_code = 500, detail = str(e))
-
-@app.get("/tasks/{task_id}", response_model = schemas.TaskResponse)
-def get_task_status(task_id: int, db: Session = Depends(get_db)):
-    db_task = db.query(models.Task).filter(models.Task.id == task_id).first()
-    if not db_task:
-        raise HTTPException(status_code=404, detail="Task not found")
+    db_task = models.Task(title = task.title, description=task.description)
+    db.add(db_task)
+    db.commit()
+    db.refresh(db_task)
+    worker.process_notification.delay(db_task.id)
     return db_task
 
-@app.get("/tasks", response_model = List[schemas.TaskResponse])
+@app.get("/tasks", response_model=List[schemas.TaskResponse])
 def list_tasks(db: Session = Depends(get_db)):
     return db.query(models.Task).all()
