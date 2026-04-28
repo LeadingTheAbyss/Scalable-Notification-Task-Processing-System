@@ -1,112 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task System Pro</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #020617; color: #f8fafc; }
-        .glass { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-    </style>
-</head>
-<body class="min-h-screen p-4 md:p-12 font-sans">
-    <div class="max-w-5xl mx-auto">
-        <div class="flex justify-between items-center mb-12">
-            <div>
-                <h1 class="text-4xl font-extrabold tracking-tighter text-white">TASK<span class="text-blue-500">FLOW</span></h1>
-                <p class="text-slate-400 text-sm uppercase tracking-widest mt-1">Distributed Processing System</p>
-            </div>
-            <div class="glass px-6 py-2 rounded-full flex items-center gap-3">
-                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                <span class="text-xs font-bold text-slate-200">SYSTEM ONLINE</span>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div class="lg:col-span-4">
-                <div class="glass p-8 rounded-3xl sticky top-8">
-                    <h2 class="text-xl font-bold mb-6">New Request</h2>
-                    <div class="space-y-5">
-                        <div>
-                            <label class="text-xs font-bold text-slate-500 mb-2 block">TASK TITLE</label>
-                            <input id="title" type="text" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-slate-500 mb-2 block">DESCRIPTION</label>
-                            <textarea id="desc" class="w-full bg-slate-900/50 border border-slate-700 rounded-xl p-4 text-white h-32 focus:ring-2 focus:ring-blue-500 outline-none transition-all"></textarea>
-                        </div>
-                        <button onclick="createTask()" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/20 transition-all active:scale-95">
-                            DISPATCH TASK
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-8">
-                <div class="glass p-8 rounded-3xl min-h-[500px]">
-                    <div class="flex justify-between items-center mb-8">
-                        <h2 class="text-xl font-bold">Live Execution Queue</h2>
-                        <span class="text-xs text-slate-500 font-mono" id="last-updated">LAST UPDATED: JUST NOW</span>
-                    </div>
-                    <div id="task-list" class="space-y-4"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        async function createTask() {
-            const title = document.getElementById('title').value;
-            const description = document.getElementById('desc').value;
-            if (!title) return alert('Title required');
-            
-            const res = await fetch('/tasks', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, description })
-            });
-
-            if (res.status === 429) {
-                alert('Rate limit exceeded. Wait 60s.');
-            } else {
-                document.getElementById('title').value = '';
-                document.getElementById('desc').value = '';
-                loadTasks();
-            }
-        }
-
-        async function loadTasks() {
-            const res = await fetch('/tasks');
-            const tasks = await res.json();
-            const container = document.getElementById('task-list');
-            container.innerHTML = '';
-            
-            tasks.reverse().forEach(t => {
-                const statusStyles = {
-                    'pending': 'bg-slate-500/10 text-slate-400 border-slate-500/20',
-                    'processing': 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20 animate-pulse',
-                    'completed': 'bg-green-500/10 text-green-400 border-green-500/20',
-                    'failed': 'bg-red-500/10 text-red-400 border-red-500/20'
-                };
-
-                container.innerHTML += `
-                    <div class="flex justify-between items-center p-6 bg-slate-900/30 rounded-2xl border border-slate-800 transition-all hover:border-slate-700">
-                        <div class="flex-1">
-                            <h3 class="font-bold text-slate-100">${t.title}</h3>
-                            <p class="text-sm text-slate-500 truncate max-w-md">${t.description || 'No description'}</p>
-                        </div>
-                        <div class="px-4 py-1.5 rounded-lg border text-[10px] font-black tracking-widest uppercase ${statusStyles[t.status] || statusStyles['pending']}">
-                            ${t.status}
-                        </div>
-                    </div>
-                `;
-            });
-            document.getElementById('last-updated').innerText = 'LAST UPDATED: ' + new Date().toLocaleTimeString();
-        }
-
-        setInterval(loadTasks, 2000);
-        loadTasks();
-    </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frontend</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
