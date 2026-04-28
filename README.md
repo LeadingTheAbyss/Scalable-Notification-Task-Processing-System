@@ -1,5 +1,5 @@
 <p align="center"> 
-  <img src="image/logo.png" alt="TaskFlow Logo" width="100px" height="100px">
+  <img src="image/logo.png" alt="TaskFlow Logo" width="200px" height="200px">
 </p>
 <h1 align="center"> TaskFlow: Distributed Processing Engine </h1>
 <h3 align="center"> Scalable Notification & Asynchronous Task Queue </h3>
