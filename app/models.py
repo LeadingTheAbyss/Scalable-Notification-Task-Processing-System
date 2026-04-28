@@ -9,4 +9,4 @@ class Task(Base):
     title = Column(String, nullable = False)
     description = Column(String)
     status = Column(String, default="pending")  
-    created_at = Column(DateTime, default=datetime.utcnow)
+    created_at = Column(DateTime, default = datetime.utcnow)
