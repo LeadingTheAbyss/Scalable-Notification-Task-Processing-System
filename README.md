@@ -59,20 +59,30 @@
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
-<h2> :books: Core Technologies</h2>
-<ul>
-  <li><p>FastAPI Framework. [Online].</p>
-      <p>Available: https://fastapi.tiangolo.com/</p>
-  </li>
-  <li><p>Celery: Distributed Task Queue. [Online].</p>
-      <p>Available: https://docs.celeryq.dev/en/stable/</p>
-  </li>
-  <li><p>Redis In-Memory Datastore. [Online].</p>
-      <p>Available: https://redis.io/</p>
-  </li>
-  <li><p>React & Vite Tooling. [Online].</p>
-      <p>Available: https://vitejs.dev/</p>
-  </li>
-</ul>
+<h2> :zap: Core Technologies </h2>
+
+<p align="center">
+  <a href="https://fastapi.tiangolo.com/" target="_blank">
+    <img src="https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi" alt="FastAPI">
+  </a>
+  <a href="https://docs.celeryq.dev/en/stable/" target="_blank">
+    <img src="https://img.shields.io/badge/celery-%2337814A.svg?style=for-the-badge&logo=celery&logoColor=white" alt="Celery">
+  </a>
+  <a href="https://redis.io/" target="_blank">
+    <img src="https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white" alt="Redis">
+  </a>
+  <a href="https://www.postgresql.org/" target="_blank">
+    <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="PostgreSQL">
+  </a>
+  <a href="https://www.docker.com/" target="_blank">
+    <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+  </a>
+  <a href="https://react.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" alt="React">
+  </a>
+  <a href="https://vitejs.dev/" target="_blank">
+    <img src="https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white" alt="Vite">
+  </a>
+</p>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
