@@ -10,6 +10,22 @@
 
 <p>I have developed an enterprise-grade distributed processing system that decouples resource-intensive tasks from synchronous REST APIs. It offloads heavy workloads to background worker nodes via a message broker, ensuring high availability, fault tolerance, and horizontal scalability.</p>
 
+<br/>
+
+<div align="center">
+
+## 🚀 Live Deployment
+
+<a href="https://huggingface.co/spaces/LeadingTheAbyss/Scalable_Notification_and_Task_Processing_System">
+  <img 
+    src="https://img.shields.io/badge/Open%20Application-111111?style=for-the-badge&logo=huggingface&logoColor=white" 
+  />
+</a>
+
+<br/>
+<br/>
+</div>
+
 <h2> :floppy_disk: Architecture & Components </h2>
 
 <p>This project is orchestrated via Docker and divided into decoupled microservices:</p>
