@@ -1,0 +1,14 @@
+name: Keep Hugging Face Space Awake
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch: 
+
+jobs:
+  ping-space:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Hugging Face Space
+        run: |
+          curl -s -o /dev/null -w "HTTP Status: %{http_code}\n" https://huggingface.co/spaces/LeadingTheAbyss/Scalable_Notification_and_Task_Processing_System
